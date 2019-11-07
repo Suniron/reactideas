@@ -2,11 +2,12 @@ import React from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { AppCardProps } from "./types";
 import QuizBuilder from "./QuizBuilder";
-import { Card, Button, CardGroup } from "react-bootstrap";
+import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
+import quiz from "img/quiz.png";
 
 const AppCard = (props: AppCardProps) => {
   return (
-    <Card border="info">
+    <Card className="p-2" border="info" style={{ minWidth: "120px" }}>
       {props.imagePath ? (
         <Card.Img variant="top" src={props.imagePath} />
       ) : null}
@@ -20,13 +21,33 @@ const AppCard = (props: AppCardProps) => {
 };
 const AppCards = () => {
   return (
-    <CardGroup>
+    <CardColumns className="w-75 p-2">
       <AppCard
         name="Quiz Builder"
-        imagePath={null}
+        imagePath={quiz}
         description="A quiz builder tool"
       />
-    </CardGroup>
+      <AppCard
+        name="Quiz Builder"
+        imagePath={quiz}
+        description="A quiz builder tool"
+      />
+      <AppCard
+        name="Quiz Builder"
+        imagePath={quiz}
+        description="A quiz builder tool"
+      />
+      <AppCard
+        name="Quiz Builder"
+        imagePath={quiz}
+        description="A quiz builder tool"
+      />
+      <AppCard
+        name="Quiz Builder"
+        imagePath={quiz}
+        description="A quiz builder tool"
+      />
+    </CardColumns>
   );
 };
 const Home = () => {
@@ -39,9 +60,19 @@ const Home = () => {
         crossOrigin="anonymous"
       />
       <header className="App-header"></header>
-      <body>
-        <AppCards />
-      </body>
+
+      <Container>
+        <Row>
+          <h1>Decouvrir mes projets...</h1>
+        </Row>
+
+        <Row className="justify-content-md-center">
+          <AppCards />
+        </Row>
+        <Row>
+          <h1>Après</h1>
+        </Row>
+      </Container>
     </div>
   );
 };
