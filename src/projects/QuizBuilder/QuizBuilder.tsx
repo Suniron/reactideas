@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 const QuizBuilder = () => {
   return (
-    <div style={{ backgroundColor: "blue" }}>
+    <div className="app-common quizBuilder">
       <Link to="/">
         <Button>Test</Button>
       </Link>
