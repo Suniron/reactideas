@@ -36,7 +36,7 @@ const AppCards = () => {
 };
 const Home = () => {
   return (
-    <div className="app-common home">
+    <div className="App home">
       <Container>
         <Row>
           <h1>Decouvrir mes projets...</h1>
