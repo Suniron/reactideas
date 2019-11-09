@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
 import { ChoosenApp, HeaderProps } from "./types";
-import { ReplaceProps, BsPrefixProps } from "react-bootstrap/helpers";
-import { SafeAnchorProps } from "react-bootstrap";
+import Counter from "./Counter";
 
 const Header = (props: HeaderProps) => {
   return (
@@ -24,7 +23,12 @@ const Header = (props: HeaderProps) => {
 };
 
 const Home = () => {
-  return <p>Home !</p>;
+  return (
+    <div>
+      <p>Home !</p>
+      <Counter />
+    </div>
+  );
 };
 
 const CreateMode = () => {

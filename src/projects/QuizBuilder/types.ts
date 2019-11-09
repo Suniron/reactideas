@@ -2,6 +2,8 @@ import { SetStateAction, Dispatch } from "react";
 
 export type ChoosenApp = "home" | "createMode" | "showMode";
 
-export type HeaderProps = {
+export interface HeaderProps {
   setMode: Dispatch<SetStateAction<ChoosenApp>>;
-};
+}
+
+export interface CounterProps {}
