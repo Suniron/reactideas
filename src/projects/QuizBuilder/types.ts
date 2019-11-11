@@ -6,4 +6,6 @@ export interface HeaderProps {
   setMode: Dispatch<SetStateAction<ChoosenApp>>;
 }
 
-export interface CounterProps {}
+export interface CounterProps {
+  count: number;
+}
