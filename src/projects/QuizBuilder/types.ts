@@ -1,9 +1,9 @@
 import { SetStateAction, Dispatch } from "react";
 
-export type ChoosenApp = "home" | "createMode" | "showMode";
+export type ChoosedMode = "home" | "createMode" | "showMode";
 
 export interface HeaderProps {
-  setMode: Dispatch<SetStateAction<ChoosenApp>>;
+  setMode: Dispatch<SetStateAction<ChoosedMode>>;
 }
 
 export interface CounterProps {

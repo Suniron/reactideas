@@ -1,0 +1,3 @@
+BUGS REPORT:
+
+- When user is on "Consultation" tab of the Quiz Builder, click on "Accueil" tab do nothing. 

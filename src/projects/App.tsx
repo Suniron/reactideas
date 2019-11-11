@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { AppCardProps } from "./types";
 import "./App.css";
 import QuizBuilder from "./QuizBuilder";
 import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
 import quiz from "img/quiz.png";
+import { Quiz } from "./QuizBuilder/quizData/types";
 
 const AppCard = (props: AppCardProps) => {
   return (

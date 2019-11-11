@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Navbar, Nav } from "react-bootstrap";
-import { ChoosenApp, HeaderProps } from "./types";
+import { ChoosedMode, HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
 import ShowMode from "./ShowMode";
@@ -27,14 +27,14 @@ const Header = (props: HeaderProps) => {
 };
 
 const QuizBuilder = () => {
-  const [choosenApp, setChoosenApp] = useState<ChoosenApp>("home");
+  const [choosedMode, setChoosedMode] = useState<ChoosedMode>("home");
 
   return (
     <div className="App quizBuilder">
-      <Header setMode={setChoosenApp} />
-      {choosenApp === "home" ? <Home /> : null}
-      {choosenApp === "createMode" ? <CreateMode /> : null}
-      {choosenApp === "showMode" ? <ShowMode /> : null}
+      <Header setMode={setChoosedMode} />
+      {choosedMode === "home" ? <Home /> : null}
+      {choosedMode === "createMode" ? <CreateMode /> : null}
+      {choosedMode === "showMode" ? <ShowMode /> : null}
     </div>
   );
 };
