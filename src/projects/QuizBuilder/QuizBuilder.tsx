@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import { ChoosedMode, HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
@@ -12,16 +12,23 @@ const Header = (props: HeaderProps) => {
         Quiz Builder
       </Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link>Accueil</Nav.Link>
-        <Nav.Link onClick={() => props.setMode("createMode")}>
-          Création
-        </Nav.Link>
-        <Nav.Link onClick={() => props.setMode("showMode")}>
-          Consultation
-        </Nav.Link>
+        <Nav.Item>
+          <Dropdown>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              Choisir un mode
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => props.setMode("createMode")}>
+                Création
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => props.setMode("showMode")}>
+                Consultation
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav.Item>
       </Nav>
-      <Nav className="mr-auto"></Nav>
-      <Button variant="outline-info">Menu</Button>
     </Navbar>
   );
 };
@@ -30,7 +37,7 @@ const QuizBuilder = () => {
   const [choosedMode, setChoosedMode] = useState<ChoosedMode>("home");
 
   return (
-    <div className="App quizBuilder">
+    <div className="quizBuilder">
       <Header setMode={setChoosedMode} />
       {choosedMode === "home" ? <Home /> : null}
       {choosedMode === "createMode" ? <CreateMode /> : null}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { AppCardProps } from "./types";
 import "./App.css";
@@ -36,7 +36,7 @@ const AppCards = () => {
 };
 const Home = () => {
   return (
-    <div className="App home">
+    <div className="home">
       <Container>
         <Row>
           <h1>Decouvrir mes projets...</h1>
@@ -46,14 +46,6 @@ const Home = () => {
           <AppCards />
         </Row>
       </Container>
-    </div>
-  );
-};
-
-const Test = () => {
-  return (
-    <div>
-      <h1>Test!</h1>
     </div>
   );
 };

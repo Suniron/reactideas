@@ -15,6 +15,14 @@ export const quizTest: Array<Quiz> = [
           { text: "souris", isCorrect: false },
           { text: "pigeon", isCorrect: false }
         ]
+      },
+      {
+        question: "Combien de pattes à une Chauve-Souris?",
+        imagePath: "https://image.flaticon.com/icons/svg/2219/2219690.svg",
+        answers: [
+          { text: "Deux", isCorrect: true },
+          { text: "Quatre", isCorrect: false }
+        ]
       }
     ]
   }

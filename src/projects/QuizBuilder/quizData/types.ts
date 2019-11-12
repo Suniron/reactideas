@@ -1,16 +1,16 @@
-interface answer {
+export interface Answer {
   text: string;
   isCorrect: boolean;
 }
-interface question {
+export interface Question {
   question: string;
   imagePath: string | null;
-  answers: Array<answer>;
+  answers: Array<Answer>;
 }
 export interface Quiz {
   name: string;
   description: string;
   illustrationPath: string | null;
 
-  questions: Array<question>;
+  questions: Array<Question>;
 }
