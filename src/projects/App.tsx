@@ -5,7 +5,6 @@ import "./App.css";
 import QuizBuilder from "./QuizBuilder";
 import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
 import quiz from "img/quiz.png";
-import { Quiz } from "./QuizBuilder/quizData/types";
 
 const AppCard = (props: AppCardProps) => {
   return (
@@ -47,6 +46,14 @@ const Home = () => {
           <AppCards />
         </Row>
       </Container>
+    </div>
+  );
+};
+
+const Test = () => {
+  return (
+    <div>
+      <h1>Test!</h1>
     </div>
   );
 };
