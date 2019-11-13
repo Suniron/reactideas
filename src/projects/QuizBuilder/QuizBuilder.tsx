@@ -4,7 +4,6 @@ import { ChoosedMode, HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
 import ShowMode from "./ShowMode";
-import { Row } from "react-bootstrap";
 
 const Header = (props: HeaderProps) => {
   return (

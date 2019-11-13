@@ -9,7 +9,7 @@ import { Provider } from "overmind-react";
 import { config } from "./store";
 import { createOvermind } from "overmind";
 
-const overmind = createOvermind(config);
+const overmind = createOvermind(config, { devtools: true, logProxies: true });
 
 ReactDOM.render(
   <Provider value={overmind}>

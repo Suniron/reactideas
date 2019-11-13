@@ -1,4 +1,4 @@
-import { IConfig, createOvermind } from "overmind";
+import { IConfig } from "overmind";
 import { namespaced } from "overmind/config";
 import * as firebase from "./firebase";
 import { createHook } from "overmind-react";
