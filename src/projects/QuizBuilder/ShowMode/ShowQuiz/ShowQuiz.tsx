@@ -146,9 +146,9 @@ const ShowQuiz = (props: ShowQuizProps) => {
 
   // -- FUNCTIONS --
   const updateQuizProgress = (totalAnswers: number) => {
-    console.log("Mise à jour de la progression");
     setQuizProgress(totalAnswers);
   };
+
   const handleAnswered = (resultIsCorrect: boolean) => {
     if (resultIsCorrect) {
       const newRightAnswers = rightAnswers + 1;
