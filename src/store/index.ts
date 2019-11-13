@@ -11,6 +11,4 @@ declare module "overmind" {
   interface Config extends IConfig<typeof config> {}
 }
 
-const overmind = createOvermind(config);
-
 export const useOvermind = createHook<typeof config>();

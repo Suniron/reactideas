@@ -1,6 +1,6 @@
 import { OnInitialize } from "overmind";
 import firebase from "firebase/app";
-import { authState } from "rxfire/auth";
+import { authState } from "firebase/auth";
 
 export const onInitialize: OnInitialize = async ({ state, effects }) => {
   effects.firebase.initialize();
