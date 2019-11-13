@@ -164,10 +164,10 @@ const ShowQuiz = (props: ShowQuizProps) => {
   // -- RENDER --
   return (
     <Container>
-      <Row>
+      <Row className="justify-content-center">
         <h1>{props.quiz.name}</h1>
       </Row>
-      <Row>
+      <Row className="justify-content-center">
         <p>{props.quiz.description}</p>
       </Row>
       {quizProgress !== 0 ? (
@@ -179,13 +179,13 @@ const ShowQuiz = (props: ShowQuizProps) => {
             now={quizProgress}
             max={props.quiz.questions.length}
             label={`Progression du quiz`}
-            style={{ width: "80%" }}
+            style={{ width: "80%", minHeight: "25px" }}
           />
         </Row>
       ) : null}
 
-      <Row>
-        <CardDeck>
+      <Row className="justify-content-center">
+        <CardDeck className="p-3">
           {props.quiz.questions.map(question => {
             return (
               <QuestionCard
