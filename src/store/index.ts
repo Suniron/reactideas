@@ -1,9 +1,11 @@
-import { IConfig } from "overmind";
+import { IConfig, createOvermind } from "overmind";
 import { namespaced } from "overmind/config";
+
 import * as firebase from "./firebase";
 import { createHook } from "overmind-react";
 
-export const config = namespaced({
+/*
+const config = namespaced({
   firebase
 });
 
@@ -11,4 +13,12 @@ declare module "overmind" {
   interface Config extends IConfig<typeof config> {}
 }
 
-export const useOvermind = createHook<typeof config>();
+const overmind = createOvermind(config);
+
+export const useOvermind = createHook(overmind);
+*/
+export const overmind = createOvermind({
+  state: {
+    count: 0
+  }
+});

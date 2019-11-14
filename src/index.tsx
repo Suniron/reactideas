@@ -3,13 +3,18 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import App from "./projects";
 
-// To test:
-import {} from "store";
 import { Provider } from "overmind-react";
+import { overmind } from "store";
+/*
 import { config } from "./store";
-import { createOvermind } from "overmind";
 
-const overmind = createOvermind(config, { devtools: true, logProxies: true });
+
+const store = createOvermind(config, {
+  devtools: true,
+  logProxies: true,
+  hotReloading: true
+});
+*/
 
 ReactDOM.render(
   <Provider value={overmind}>
