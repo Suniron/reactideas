@@ -1,7 +1,7 @@
 import { Action } from "overmind";
 
-export const increaseCount: Action = (context, value) => {
-  console.log("increaseCount !");
+export const increaseCount: Action = ({ state }) => {
+  state.count++;
 };
 
 /** 

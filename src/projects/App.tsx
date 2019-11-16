@@ -5,6 +5,18 @@ import "./App.css";
 import QuizBuilder from "./QuizBuilder";
 import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
 import quiz from "img/quiz.png";
+import { useApp } from "store";
+
+const Test = () => {
+  const { state, actions } = useApp();
+
+  return (
+    <div>
+      <p>Compteur: {state.count}</p>
+      <Button onClick={actions.increaseCount}>Ajouter</Button>
+    </div>
+  );
+};
 
 const AppCard = (props: AppCardProps) => {
   return (
@@ -40,6 +52,9 @@ const Home = () => {
       <Container>
         <Row>
           <h1>Decouvrir mes projets...</h1>
+        </Row>
+        <Row>
+          <Test />
         </Row>
 
         <Row className="justify-content-md-center">

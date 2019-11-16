@@ -4,7 +4,8 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./projects";
 
 import { Provider } from "overmind-react";
-import { overmind } from "store";
+import { createOvermind } from "overmind";
+import { config } from "store";
 /*
 import { config } from "./store";
 
@@ -15,6 +16,10 @@ const store = createOvermind(config, {
   hotReloading: true
 });
 */
+export const overmind = createOvermind(config, {
+  devtools: true,
+  hotReloading: true
+});
 
 ReactDOM.render(
   <Provider value={overmind}>
