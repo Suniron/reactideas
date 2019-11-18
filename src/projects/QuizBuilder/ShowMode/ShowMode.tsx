@@ -6,15 +6,22 @@ import { QuizCardProps, QuizCardsProps } from "./types";
 import { quizTest } from "./../quizData/quizDataTest";
 import { Quiz } from "../quizData/types";
 import ShowQuiz from "./ShowQuiz";
+import { useOvermind } from "store";
 
 const QuizCard = (props: QuizCardProps) => {
+  // -- HOOKS --
+  const { actions } = useOvermind();
+
+  // -- FUNCTIONS --
   const onClickHandle = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    actions.changeIsInQuiz(true);
     props.handleChoose(props.quiz);
   };
 
+  // -- RENDER --
   return (
     <Card>
       {props.quiz.illustrationPath ? (

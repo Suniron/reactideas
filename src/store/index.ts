@@ -4,7 +4,7 @@ import * as actions from "./actions";
 import { state } from "./state";
 
 export const config = { state, actions };
-export const useApp = createHook<typeof config>();
+export const useOvermind = createHook<typeof config>();
 
 declare module "overmind" {
   // tslint:disable:interface-name

@@ -12,9 +12,11 @@ import {
   Button,
   Card,
   CardDeck,
-  Form
+  Form,
+  Col
 } from "react-bootstrap";
 import { Answer } from "projects/QuizBuilder/quizData/types";
+import { useOvermind } from "store";
 
 /**
  * TODO:
@@ -140,6 +142,7 @@ const QuestionCard = (props: QuestionCardProps) => {
 
 const ShowQuiz = (props: ShowQuizProps) => {
   // -- HOOKS --
+  const { actions } = useOvermind();
   const [quizProgress, setQuizProgress] = useState<number>(0);
   const [rightAnswers, setRightAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
@@ -164,12 +167,29 @@ const ShowQuiz = (props: ShowQuizProps) => {
   // -- RENDER --
   return (
     <Container>
-      <Row className="justify-content-center">
-        <h1>{props.quiz.name}</h1>
+      <Row>
+        <Col className="justify-content-center">
+          <Row>
+            <h1>{props.quiz.name}</h1>
+          </Row>
+          <Row>
+            <p>{props.quiz.description}</p>
+          </Row>
+        </Col>
+        <Col>
+          <Row className="justify-content-end p-3">
+            <Button
+              onClick={() => {
+                actions.changeIsInQuiz(false);
+              }}
+              variant="dark"
+            >
+              Quitter le quiz
+            </Button>
+          </Row>
+        </Col>
       </Row>
-      <Row className="justify-content-center">
-        <p>{props.quiz.description}</p>
-      </Row>
+
       {quizProgress !== 0 ? (
         <Row className="justify-content-center">
           <ProgressBar

@@ -5,10 +5,10 @@ import "./App.css";
 import QuizBuilder from "./QuizBuilder";
 import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
 import quiz from "img/quiz.png";
-import { useApp } from "store";
+import { useOvermind } from "store";
 
 const Test = () => {
-  const { state, actions } = useApp();
+  const { state, actions } = useOvermind();
 
   return (
     <div>
@@ -52,9 +52,6 @@ const Home = () => {
       <Container>
         <Row>
           <h1>Decouvrir mes projets...</h1>
-        </Row>
-        <Row>
-          <Test />
         </Row>
 
         <Row className="justify-content-md-center">

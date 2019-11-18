@@ -4,6 +4,13 @@ export const increaseCount: Action = ({ state }) => {
   state.count++;
 };
 
+export const changeIsInQuiz: Action<boolean> = (
+  { state },
+  isInQuiz: boolean
+) => {
+  state.isInQuiz = isInQuiz;
+};
+
 /** 
 
     EXEMPLES
