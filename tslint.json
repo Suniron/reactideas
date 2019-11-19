@@ -34,8 +34,7 @@
     ],
     "no-implicit-dependencies": false,
     "no-submodule-imports": false,
-    "no-object-literal-type-assertion": false,
-    "react-hooks-nesting": "error"
+    "no-object-literal-type-assertion": false
   },
   "rulesDirectory": []
 }

@@ -6,16 +6,7 @@ import App from "./projects";
 import { Provider } from "overmind-react";
 import { createOvermind } from "overmind";
 import { config } from "store";
-/*
-import { config } from "./store";
 
-
-const store = createOvermind(config, {
-  devtools: true,
-  logProxies: true,
-  hotReloading: true
-});
-*/
 export const overmind = createOvermind(config, {
   devtools: true,
   hotReloading: true

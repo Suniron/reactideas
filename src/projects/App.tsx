@@ -5,18 +5,6 @@ import "./App.css";
 import QuizBuilder from "./QuizBuilder";
 import { Card, Button, CardColumns, Container, Row } from "react-bootstrap";
 import quiz from "img/quiz.png";
-import { useOvermind } from "store";
-
-const Test = () => {
-  const { state, actions } = useOvermind();
-
-  return (
-    <div>
-      <p>Compteur: {state.count}</p>
-      <Button onClick={actions.increaseCount}>Ajouter</Button>
-    </div>
-  );
-};
 
 const AppCard = (props: AppCardProps) => {
   return (

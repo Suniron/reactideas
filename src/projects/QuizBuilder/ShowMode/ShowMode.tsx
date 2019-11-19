@@ -17,7 +17,8 @@ const QuizCard = (props: QuizCardProps) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    actions.changeIsInQuiz(true);
+    actions.setIsInQuiz(true);
+    actions.setCurrentQuiz(props.quiz);
     props.handleChoose(props.quiz);
   };
 

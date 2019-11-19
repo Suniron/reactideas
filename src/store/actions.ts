@@ -1,14 +1,15 @@
 import { Action } from "overmind";
+import { Quiz } from "projects/QuizBuilder/quizData/types";
 
-export const increaseCount: Action = ({ state }) => {
-  state.count++;
+export const setIsInQuiz: Action<boolean> = ({ state }, isInQuiz: boolean) => {
+  state.isInQuiz = isInQuiz;
 };
 
-export const changeIsInQuiz: Action<boolean> = (
+export const setCurrentQuiz: Action<null | Quiz> = (
   { state },
-  isInQuiz: boolean
+  currentQuiz: null | Quiz
 ) => {
-  state.isInQuiz = isInQuiz;
+  state.currentQuiz = currentQuiz;
 };
 
 /** 

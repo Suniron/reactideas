@@ -180,7 +180,7 @@ const ShowQuiz = (props: ShowQuizProps) => {
           <Row className="justify-content-end p-3">
             <Button
               onClick={() => {
-                actions.changeIsInQuiz(false);
+                actions.setIsInQuiz(false);
               }}
               variant="dark"
             >
