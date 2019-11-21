@@ -12,6 +12,14 @@ export const setCurrentQuiz: Action<null | Quiz> = (
   state.currentQuiz = currentQuiz;
 };
 
+export const setAchievedQuestion: Action<boolean> = (
+  { state },
+  isAchieved: boolean
+) => {
+  if (state.currentQuiz) {
+  }
+};
+
 /** 
 
     EXEMPLES

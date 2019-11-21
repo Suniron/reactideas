@@ -10,18 +10,18 @@ export const quizTest: Array<Quiz> = [
         question: "Quel est le nom de cet animal ?",
         imagePath: "https://image.flaticon.com/icons/svg/616/616563.svg",
         answers: [
-          { text: "Ours", isCorrect: false },
-          { text: "Panda", isCorrect: true },
-          { text: "souris", isCorrect: false },
-          { text: "pigeon", isCorrect: false }
+          { text: "Ours", isCorrectAnswer: false },
+          { text: "Panda", isCorrectAnswer: true },
+          { text: "souris", isCorrectAnswer: false },
+          { text: "pigeon", isCorrectAnswer: false }
         ]
       },
       {
         question: "Combien de pattes à une Chauve-Souris?",
         imagePath: "https://image.flaticon.com/icons/svg/2219/2219690.svg",
         answers: [
-          { text: "Deux", isCorrect: true },
-          { text: "Quatre", isCorrect: false }
+          { text: "Deux", isCorrectAnswer: true },
+          { text: "Quatre", isCorrectAnswer: false }
         ]
       }
     ]

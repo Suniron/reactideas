@@ -57,7 +57,7 @@ const AnswerSelector = (props: AnswerSelectorProps) => {
       // TODO: Show an error message: answer required to submit
     } else {
       setIsAnswered(true);
-      props.onAnswerSubmit(userAnswer.isCorrect);
+      props.onAnswerSubmit(userAnswer.isCorrectAnswer);
     }
   };
 
@@ -114,13 +114,13 @@ const QuestionCard = (props: QuestionCardProps) => {
   >(undefined);
 
   // -- FUNCTIONS --
-  const handleAnswerSubmit = (isCorrect: boolean) => {
-    if (isCorrect) {
+  const handleAnswerSubmit = (isCorrectAnswer: boolean) => {
+    if (isCorrectAnswer) {
       setCardBackground("success");
     } else {
       setCardBackground("danger");
     }
-    props.onAnswered(isCorrect);
+    props.onAnswered(isCorrectAnswer);
   };
 
   // -- RENDER --
@@ -152,8 +152,8 @@ const ShowQuiz = (props: ShowQuizProps) => {
     setQuizProgress(totalAnswers);
   };
 
-  const handleAnswered = (resultIsCorrect: boolean) => {
-    if (resultIsCorrect) {
+  const handleAnswered = (resultisCorrectAnswer: boolean) => {
+    if (resultisCorrectAnswer) {
       const newRightAnswers = rightAnswers + 1;
       updateQuizProgress(newRightAnswers + wrongAnswers);
       setRightAnswers(newRightAnswers);
