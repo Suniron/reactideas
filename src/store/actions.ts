@@ -1,9 +1,15 @@
 import { Action } from "overmind";
 import { Quiz } from "projects/QuizBuilder/quizData/types";
 
-export const setIsInQuiz: Action<boolean> = ({ state }, isInQuiz: boolean) => {
-  state.isInQuiz = isInQuiz;
+export const setCurrentQuiz: Action<null | Quiz> = (
+  { state },
+  currentQuiz: null | Quiz
+) => {
+  state.currentQuiz = currentQuiz;
 };
+/** 
+
+    EXEMPLES
 
 export const setCurrentQuiz: Action<null | Quiz> = (
   { state },
@@ -20,10 +26,6 @@ export const setAchievedQuestion: Action<boolean> = (
   }
 };
 
-/** 
-
-    EXEMPLES
- 
 export const noArgAction: Action = (context, value) => {
   value // this becomes "void"
 }

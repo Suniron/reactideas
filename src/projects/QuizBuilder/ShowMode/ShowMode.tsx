@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardColumns, Container, Row, Button } from "react-bootstrap";
 import { QuizCardProps, QuizCardsProps } from "./types";
 
@@ -16,10 +16,7 @@ const QuizCard = (props: QuizCardProps) => {
   const onClickHandle = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    event.preventDefault();
-    actions.setIsInQuiz(true);
     actions.setCurrentQuiz(props.quiz);
-    props.handleChoose(props.quiz);
   };
 
   // -- RENDER --
@@ -55,27 +52,27 @@ const QuizCards = (props: QuizCardsProps) => {
 
 export const ShowMode = () => {
   // -- HOOKS --
-  const [selectedQuiz, setSelectedQuiz] = useState<null | Quiz>(null);
+  const { state, actions } = useOvermind();
 
   // -- FUNCTIONS --
   const onChooseQuiz = (choosedQuiz: Quiz) => {
-    setSelectedQuiz(choosedQuiz);
+    actions.setCurrentQuiz(choosedQuiz);
   };
 
   // -- RENDER --
-  if (selectedQuiz) {
-    return <ShowQuiz quiz={selectedQuiz} />;
-  } else {
-    return (
-      <Container>
-        <Row>
-          <h1>Choisissez un quiz:</h1>
-        </Row>
-
-        <Row>
-          <QuizCards handleChoose={onChooseQuiz} />
-        </Row>
-      </Container>
-    );
+  if (state.currentQuiz) {
+    return <ShowQuiz quiz={state.currentQuiz} />;
   }
+
+  return (
+    <Container>
+      <Row>
+        <h1>Choisissez un quiz:</h1>
+      </Row>
+
+      <Row>
+        <QuizCards handleChoose={onChooseQuiz} />
+      </Row>
+    </Container>
+  );
 };
