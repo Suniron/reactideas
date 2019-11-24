@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar, Nav, Dropdown } from "react-bootstrap";
-import { ChoosedMode, HeaderProps } from "./types";
+import { HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
 import ShowMode from "./ShowMode";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Redirect
+} from "react-router-dom";
 
 const Header = (props: HeaderProps) => {
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand onClick={() => props.setMode("home")}>
-        Quiz Builder
-      </Navbar.Brand>
+      <Navbar.Brand>Quiz Builder</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Item>
           <Dropdown>
@@ -19,11 +23,22 @@ const Header = (props: HeaderProps) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => props.setMode("createMode")}>
-                Création
+              <Dropdown.Item>
+                <NavLink style={{ color: "black" }} to="/quizbuilder">
+                  Accueil
+                </NavLink>
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => props.setMode("showMode")}>
-                Consultation
+
+              <Dropdown.Item>
+                <NavLink style={{ color: "black" }} to="/quizbuilder/create">
+                  Création
+                </NavLink>
+              </Dropdown.Item>
+
+              <Dropdown.Item>
+                <NavLink style={{ color: "black" }} to="/quizbuilder/show">
+                  Consultation
+                </NavLink>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -34,14 +49,14 @@ const Header = (props: HeaderProps) => {
 };
 
 const QuizBuilder = () => {
-  const [choosedMode, setChoosedMode] = useState<ChoosedMode>("home");
-
   return (
     <div className="quizBuilder">
-      <Header setMode={setChoosedMode} />
-      {choosedMode === "home" ? <Home /> : null}
-      {choosedMode === "createMode" ? <CreateMode /> : null}
-      {choosedMode === "showMode" ? <ShowMode /> : null}
+      <Header />
+      <Router>
+        <Route exact path="/quizbuilder" component={Home} />
+        <Route exact path="/quizbuilder/create" component={CreateMode} />
+        <Route exact path="/quizbuilder/show" component={ShowMode} />
+      </Router>
     </div>
   );
 };
