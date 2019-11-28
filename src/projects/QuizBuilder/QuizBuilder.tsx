@@ -4,12 +4,7 @@ import { HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
 import ShowMode from "./ShowMode";
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Header = (props: HeaderProps) => {
   return (
@@ -24,21 +19,21 @@ const Header = (props: HeaderProps) => {
 
             <Dropdown.Menu>
               <Dropdown.Item>
-                <NavLink style={{ color: "black" }} to="/quizbuilder">
+                <Link style={{ color: "black" }} to="/quizbuilder">
                   Accueil
-                </NavLink>
+                </Link>
               </Dropdown.Item>
 
               <Dropdown.Item>
-                <NavLink style={{ color: "black" }} to="/quizbuilder/create">
+                <Link style={{ color: "black" }} to="/quizbuilder/create">
                   Création
-                </NavLink>
+                </Link>
               </Dropdown.Item>
 
               <Dropdown.Item>
-                <NavLink style={{ color: "black" }} to="/quizbuilder/show">
+                <Link style={{ color: "black" }} to="/quizbuilder/show">
                   Consultation
-                </NavLink>
+                </Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -50,14 +45,13 @@ const Header = (props: HeaderProps) => {
 
 const QuizBuilder = () => {
   return (
-    <div className="quizBuilder">
+    <Router>
       <Header />
-      <Router>
-        <Route exact path="/quizbuilder" component={Home} />
-        <Route exact path="/quizbuilder/create" component={CreateMode} />
-        <Route exact path="/quizbuilder/show" component={ShowMode} />
-      </Router>
-    </div>
+
+      <Route exact path="/quizbuilder" component={Home} />
+      <Route path="/quizbuilder/create" component={CreateMode} />
+      <Route path="/quizbuilder/show" component={ShowMode} />
+    </Router>
   );
 };
 

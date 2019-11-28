@@ -7,6 +7,7 @@ import { quizTest } from "./../quizData/quizDataTest";
 import { Quiz } from "../quizData/types";
 import ShowQuiz from "./ShowQuiz";
 import { useOvermind } from "store";
+import { RouteComponentProps } from "react-router";
 
 const QuizCard = (props: QuizCardProps) => {
   // -- HOOKS --
@@ -50,7 +51,7 @@ const QuizCards = (props: QuizCardsProps) => {
   );
 };
 
-export const ShowMode = () => {
+export const ShowMode = ({ match }: RouteComponentProps) => {
   // -- HOOKS --
   const { state, actions } = useOvermind();
 
@@ -59,12 +60,11 @@ export const ShowMode = () => {
     actions.setCurrentQuiz(choosedQuiz);
   };
 
+  console.log(match);
   // -- RENDER --
-  if (state.currentQuiz) {
-    return <ShowQuiz quiz={state.currentQuiz} />;
-  }
-
-  return (
+  return state.currentQuiz ? (
+    <ShowQuiz quiz={state.currentQuiz} />
+  ) : (
     <Container>
       <Row>
         <h1>Choisissez un quiz:</h1>
