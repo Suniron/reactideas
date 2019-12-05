@@ -18,17 +18,47 @@ export const initialize = () => {
   return app;
 };
 
-const db = initialize().firestore();
+const firestore = initialize().firestore();
 
 // -- QUIZBUILDER --
 // TODO: make a "Quiz" collection on Firebase/quizbuilder to put all quiz
 // TOTO: Modify rules
 export const getAllQuiz = () => {
-  const quizCollection = db.collection("quizbuilder");
-  quizCollection
+  firestore
+    .collection("quizbuilder")
     .get()
     .then(doc => {
       console.log("DOC", doc);
     })
     .then(err => console.log("errDOC", err));
 };
+
+/*
+return await firebaseFirestore
+    .collection("words")
+    .get()
+    .then(docs => {
+      const allWords: Array<Word> = [];
+
+      docs.forEach(doc => {
+        // Pour chaque mot matchant, l'enregistrer dans la liste:
+        const tempDoc = doc.data();
+        const tempWord: Word = {
+          title: tempDoc.title,
+          subtitle: tempDoc.subtitle,
+          description: tempDoc.description,
+          createdBy: tempDoc.createdBy,
+          createdDate: tempDoc.createdDate.toDate(), //TODO: convert,
+          editedBy: tempDoc.editedBy,
+          editedDate: tempDoc.editedDate.toDate() // TODO: convert
+        };
+        allWords.push(tempWord);
+      });
+
+      return allWords;
+    })
+    .catch(error => {
+      console.log("Erreur de récupèration:", error);
+      return null;
+    });
+    */

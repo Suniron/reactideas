@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, Dropdown, Button } from "react-bootstrap";
 import { HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";
@@ -11,33 +11,22 @@ const Header = (props: HeaderProps) => {
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand>Quiz Builder</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Item>
-          <Dropdown>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Choisir un mode
-            </Dropdown.Toggle>
+        <Button variant="outline-secondary">
+          <Link style={{ color: "grey" }} to="/quizbuilder">
+            Accueil
+          </Link>
+        </Button>
 
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <Link style={{ color: "black" }} to="/quizbuilder">
-                  Accueil
-                </Link>
-              </Dropdown.Item>
-
-              <Dropdown.Item>
-                <Link style={{ color: "black" }} to="/quizbuilder/create">
-                  Création
-                </Link>
-              </Dropdown.Item>
-
-              <Dropdown.Item>
-                <Link style={{ color: "black" }} to="/quizbuilder/show">
-                  Consultation
-                </Link>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Nav.Item>
+        <Button variant="outline-secondary">
+          <Link style={{ color: "grey" }} to="/quizbuilder/create">
+            Création
+          </Link>
+        </Button>
+        <Button variant="outline-secondary">
+          <Link style={{ color: "grey" }} to="/quizbuilder/show">
+            Consultation
+          </Link>
+        </Button>
       </Nav>
     </Navbar>
   );
