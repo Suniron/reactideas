@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Dropdown, Button } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { HeaderProps } from "./types";
 import Home from "./Home";
 import CreateMode from "./CreateMode";

@@ -8,7 +8,6 @@ import { Quiz } from "../quizData/types";
 import ShowQuiz from "./ShowQuiz";
 import { useOvermind } from "store";
 import { RouteComponentProps } from "react-router";
-import { getAllQuiz } from "utils/firebaseHelpers";
 
 const QuizCard = (props: QuizCardProps) => {
   // -- HOOKS --
@@ -61,13 +60,11 @@ export const ShowMode = ({ match }: RouteComponentProps) => {
     actions.setCurrentQuiz(choosedQuiz);
   };
 
-  console.log(match);
   // -- RENDER --
   return state.currentQuiz ? (
     <ShowQuiz quiz={state.currentQuiz} />
   ) : (
     <Container>
-      {getAllQuiz()}
       <Row>
         <h1>Choisissez un quiz:</h1>
       </Row>
