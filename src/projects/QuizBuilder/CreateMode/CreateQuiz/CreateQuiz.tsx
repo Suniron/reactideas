@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import { Quiz } from "projects/QuizBuilder/quizData/types";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { InfosProps } from "./types";
-import MakeQuizArea from "./MakeQuizArea";
+import CreateQuizQuestions from "./CreateQuizQuestions";
+import CreateQuizInfos from "./CreateQuizInfos";
+import Quiz from "img/quiz.png";
+
+// Global variable for Default Image Url to use
+var DEFAULT_IMAGE_URL = Quiz;
 
 const Infos = (props: InfosProps) => {
   if (!props.currentQuiz) {
@@ -16,25 +20,57 @@ const Infos = (props: InfosProps) => {
   }
 };
 
-const Buttons = () => {
-  return <p>Boutons</p>;
-};
-
 const CreateQuiz = () => {
   // -- HOOKS --
-  const [createdQuiz, setCreatedQuiz] = useState<null | Quiz>(null);
+  //const [createdQuiz, setCreatedQuiz] = useState<null | Quiz>(null);
+  const [quizTitle, setQuizTitle] = useState<null | string>("null");
+  const [quizDescription, setQuizDescription] = useState<null | string>("null");
+  const [quizImageURL, setQuizImageURL] = useState<null | string>(null);
+
+  // -- FUNCTIONS --
+  const updateQuizInfos = (
+    title: string,
+    description: string,
+    image?: string
+  ) => {
+    setQuizTitle(title);
+    setQuizDescription(description);
+    if (image) {
+      setQuizImageURL(image);
+    }
+  };
 
   // -- RENDER --
   return (
     <Container>
       <Row>
-        <Infos currentQuiz={createdQuiz} />
-      </Row>
-      <Row>
-        <MakeQuizArea />
-      </Row>
-      <Row>
-        <Buttons />
+        {quizTitle && quizDescription ? (
+          <Container>
+            <Row>
+              <Col>
+                <Row>
+                  <h1>{quizTitle}</h1>
+                </Row>
+                <Row>
+                  <h3>{quizDescription}</h3>
+                </Row>
+              </Col>
+              <Col>
+                <Image
+                  style={{ width: "auto", height: 100 }}
+                  src={quizImageURL ? quizImageURL : DEFAULT_IMAGE_URL}
+                  rounded
+                />
+              </Col>
+            </Row>
+
+            <Row>
+              <CreateQuizQuestions />
+            </Row>
+          </Container>
+        ) : (
+          <CreateQuizInfos updater={updateQuizInfos} />
+        )}
       </Row>
     </Container>
   );
