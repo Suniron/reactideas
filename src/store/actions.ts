@@ -1,5 +1,5 @@
 import { Action } from "overmind";
-import { Quiz } from "projects/QuizBuilder/quizData/types";
+import { Quiz, Question } from "projects/QuizBuilder/quizData/types";
 
 export const setCurrentQuiz: Action<null | Quiz> = (
   { state },
@@ -7,6 +7,23 @@ export const setCurrentQuiz: Action<null | Quiz> = (
 ) => {
   state.currentQuiz = currentQuiz;
 };
+
+export const setCurrentCreatedQuiz: Action<null | Quiz> = (
+  { state },
+  currentCreatedQuiz: null | Quiz
+) => {
+  state.currentCreatedQuiz = currentCreatedQuiz;
+};
+
+export const addQuestionToCurrentCreatedQuiz: Action<Question> = (
+  { state },
+  question: Question
+) => {
+  if (state.currentCreatedQuiz) {
+    state.currentCreatedQuiz.questions.push(question);
+  }
+};
+
 /** 
 
     EXEMPLES

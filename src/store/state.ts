@@ -4,5 +4,8 @@ export const state: State = {
   // Global:
   currentAuth: null,
   // Quiz Builder:
-  currentQuiz: null
+  // -- Show Mode:
+  currentQuiz: null,
+  // -- Create Mode:
+  currentCreatedQuiz: null
 };

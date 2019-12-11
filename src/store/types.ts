@@ -5,5 +5,8 @@ export interface State {
   // Global:
   currentAuth: null | UserInfo;
   // QuizBuilder:
+  // -- Show Mode:
   currentQuiz: null | Quiz;
+  // -- Create Mode:
+  currentCreatedQuiz: null | Quiz;
 }
