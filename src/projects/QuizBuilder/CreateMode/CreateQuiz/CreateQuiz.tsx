@@ -4,6 +4,7 @@ import { InfosProps } from "./types";
 import CreateQuizQuestions from "./CreateQuizQuestions";
 import CreateQuizInfos from "./CreateQuizInfos";
 import Quiz from "img/quiz.png";
+import { Question } from "projects/QuizBuilder/quizData/types";
 
 // Global variable for Default Image Url to use
 var DEFAULT_IMAGE_URL = Quiz;
@@ -26,6 +27,9 @@ const CreateQuiz = () => {
   const [quizTitle, setQuizTitle] = useState<null | string>("null");
   const [quizDescription, setQuizDescription] = useState<null | string>("null");
   const [quizImageURL, setQuizImageURL] = useState<null | string>(null);
+  const [quizQuestions, setQuizQuestions] = useState<null | Array<Question>>(
+    null
+  );
 
   // -- FUNCTIONS --
   const updateQuizInfos = (
@@ -38,6 +42,10 @@ const CreateQuiz = () => {
     if (image) {
       setQuizImageURL(image);
     }
+  };
+
+  const updateQuizQuestions = (questions: Array<Question>) => {
+    setQuizQuestions(questions);
   };
 
   // -- RENDER --
@@ -65,7 +73,7 @@ const CreateQuiz = () => {
             </Row>
 
             <Row>
-              <CreateQuizQuestions />
+              <CreateQuizQuestions updater={updateQuizQuestions} />
             </Row>
           </Container>
         ) : (

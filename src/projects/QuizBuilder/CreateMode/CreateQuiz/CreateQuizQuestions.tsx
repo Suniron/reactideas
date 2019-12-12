@@ -7,7 +7,7 @@ import {
   FormControlProps,
   Button
 } from "react-bootstrap";
-import { CreateQuestionProps } from "./types";
+import { CreateQuestionProps, CreateQuizQuestionsProps } from "./types";
 
 const Buttons = () => {
   return <p>Boutons</p>;
@@ -53,7 +53,7 @@ const CreateQuestion = (props: CreateQuestionProps) => {
   );
 };
 
-const CreateQuizQuestions = () => {
+const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
   const [questions, setQuestions] = useState<undefined | Array<string>>(
     undefined

@@ -1,4 +1,4 @@
-import { Quiz } from "projects/QuizBuilder/quizData/types";
+import { Quiz, Question } from "projects/QuizBuilder/quizData/types";
 
 export interface CreatedQuiz {}
 
@@ -12,4 +12,8 @@ export interface CreateQuizInfosProps {
 
 export interface CreateQuestionProps {
   updater: (question: string) => void;
+}
+
+export interface CreateQuizQuestionsProps {
+  updater: (questions: Array<Question>) => void;
 }
