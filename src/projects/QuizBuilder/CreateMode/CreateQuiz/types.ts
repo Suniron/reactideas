@@ -17,3 +17,11 @@ export interface CreateQuestionProps {
 export interface CreateQuizQuestionsProps {
   updater: (questions: Array<Question>) => void;
 }
+
+export interface MakeQuestionCardProps {
+  updater: (question: Question) => void;
+}
+
+export interface MakeAnswerFormProps {
+  id: string;
+}

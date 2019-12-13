@@ -4,7 +4,7 @@ export interface Answer {
 }
 export interface Question {
   question: string;
-  imagePath: string | null;
+  imagePath?: string;
   answers: Array<Answer>;
 }
 export interface Quiz {
