@@ -1,4 +1,4 @@
-import { Quiz, Question } from "projects/QuizBuilder/quizData/types";
+import { Quiz, Question, Answer } from "projects/QuizBuilder/quizData/types";
 
 export interface CreatedQuiz {}
 
@@ -23,5 +23,6 @@ export interface MakeQuestionCardProps {
 }
 
 export interface MakeAnswerFormProps {
+  updater: (answer: Answer, answerId: number) => void;
   id: string;
 }

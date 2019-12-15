@@ -8,7 +8,8 @@ import {
   Button,
   CardGroup,
   Card,
-  Form
+  Form,
+  FormCheckProps
 } from "react-bootstrap";
 import {
   CreateQuestionProps,
@@ -18,81 +19,6 @@ import {
 } from "./types";
 import { Question, Answer } from "projects/QuizBuilder/quizData/types";
 
-const Buttons = () => {
-  return <p>Boutons</p>;
-};
-
-const CreateQuestion = (props: CreateQuestionProps) => {
-  // -- HOOKS --
-  const [question, setQuestion] = useState<undefined | string>(undefined);
-
-  // -- FUNCTIONS --
-
-  const onChangeQuestion = (event: ChangeEvent<FormControlProps>) => {
-    if (event.target.value) {
-      setQuestion(event.target.value);
-    }
-  };
-
-  const onSubmitHandler = (event: SyntheticEvent<HTMLButtonElement>) => {
-    if (question) {
-      props.updater(question);
-    }
-    // TODO: Else handle error (empty field, not string, ...)
-  };
-
-  // -- RENDERER --
-  return (
-    <Container>
-      <Row>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>Quelle est la question ?</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl onChange={onChangeQuestion} />
-        </InputGroup>
-      </Row>
-
-      <Row>
-        <Button type="button" onClick={onSubmitHandler}>
-          Valider la question et passer à l'ajout de ses réponses
-        </Button>
-      </Row>
-    </Container>
-  );
-};
-
-const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
-  // -- HOOKS --
-  const [questions, setQuestions] = useState<undefined | Array<string>>(
-    undefined
-  );
-
-  // -- FUNCTIONS --
-  const updateQuestion = (question: string) => {
-    if (!questions) {
-      setQuestions([question]);
-    } else {
-      setQuestions(questions.concat(question));
-    }
-  };
-
-  // -- RENDER --
-  return (
-    <Container>
-      <Row>aperçu des questions déjà crées</Row>
-      <Row>
-        <CreateQuestion updater={updateQuestion} />
-      </Row>
-      <Row>Saisie réponses</Row>
-      <Row>
-        <Buttons />
-      </Row>
-    </Container>
-  );
-};
-
-// ======================== NEW: =============================
 const MakeAnswerForm = (props: MakeAnswerFormProps) => {
   // -- HOOKS --
   const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean>(false);
@@ -105,6 +31,19 @@ const MakeAnswerForm = (props: MakeAnswerFormProps) => {
       return;
     }
     setText(event.target.value);
+    props.updater(
+      { text: event.target.value, isCorrectAnswer: isCorrectAnswer },
+      parseInt(props.id)
+    );
+  };
+
+  const onChangeCheck = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsCorrectAnswer(event.target.checked);
+
+    props.updater(
+      { text: text, isCorrectAnswer: event.target.checked },
+      parseInt(props.id)
+    );
   };
 
   // -- RENDERER --
@@ -119,9 +58,7 @@ const MakeAnswerForm = (props: MakeAnswerFormProps) => {
         type="checkbox"
         label="Cocher s'il s'agit d'une bonne réponse"
         id={`check${props.id}`}
-        onChange={() =>
-          isCorrectAnswer ? setIsCorrectAnswer(false) : setIsCorrectAnswer(true)
-        }
+        onChange={onChangeCheck}
       />
     </Form.Row>
   );
@@ -132,8 +69,11 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   const [question, setQuestion] = useState<string>("");
   const [currentMode, setCurrentMode] = useState<"show" | "edit">("edit");
   const [imageURL, setImageURL] = useState<undefined | string>(undefined);
-  const [numberOfAnswers, setNumberOfAnswers] = useState<number>(2);
-  const [answers, setAnswers] = useState<null | Array<Answer>>(null);
+  // TODO: remove any:
+  const [answers, setAnswers] = useState<any>({
+    1: { text: "", isCorrectAnswer: false },
+    2: { text: "", isCorrectAnswer: false }
+  });
 
   // -- FUNCTIONS --
   const changeCurrentMode = () => {
@@ -145,16 +85,28 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   };
 
   const addAnswer = () => {
-    setNumberOfAnswers(numberOfAnswers + 1);
+    // Make a copy of answer state to edit before update
+    let answersCopy = { ...answers };
+
+    // Add a new default answer to answersCopy:
+    answersCopy[Object.keys(answers).length + 1] = {
+      text: "",
+      isCorrectAnswer: false
+    };
+    // Update answer state
+    setAnswers(answersCopy);
   };
 
-  const updateAnswers = (answer: Answer) => {
+  const updateAnswers = (answer: Answer, answerId: number) => {
     if (!answers) return;
 
-    let answersCopy = [...answers];
+    let answersCopy = { ...answers };
 
-    for (let i = 0; i <= answersCopy.length; i++) {
-      console.log("test");
+    for (let id in answersCopy) {
+      if (parseInt(id) === answerId) {
+        answersCopy[id] = answer; // Set new answer object
+        setAnswers(answersCopy); // set answers state
+      }
     }
   };
 
@@ -177,23 +129,29 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
     setQuestion(event.target.value);
   };
 
-  const onSubmitQuestion = () => {
-    console.log(question, currentMode, imageURL, numberOfAnswers);
-    /*
+  const onAddNewAnswer = () => {
+    addAnswer();
+  };
+
+  const onValidQuestion = () => {
+    console.log(question, currentMode, imageURL, answers);
+
     if (question && answers) {
+      setCurrentMode("show");
       props.updater({
         imagePath: imageURL,
         question: question,
         answers: answers
       });
     }
-    */
   };
 
   // -- GENERATE COMPONENTS --
   let answersComp = [];
-  for (let i = 0; i <= numberOfAnswers; i++) {
-    answersComp.push(<MakeAnswerForm key={`#${i}`} id={i.toString()} />);
+  for (let i = 1; i <= Object.keys(answers).length; i++) {
+    answersComp.push(
+      <MakeAnswerForm key={`#${i}`} updater={updateAnswers} id={i.toString()} />
+    );
   }
 
   // -- RENDERER --
@@ -226,8 +184,8 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
           {answersComp.map(comp => comp)}
         </Form.Group>
       </Form>
-      <Button>Ajouter une réponse</Button>
-      <Button onClick={onSubmitQuestion}>Valider cette question</Button>
+      <Button onClick={onAddNewAnswer}>Ajouter une réponse</Button>
+      <Button onClick={onValidQuestion}>Valider cette question</Button>
     </Card>
   );
 };
@@ -238,6 +196,7 @@ const CreateQuizQuestions2 = (props: CreateQuizQuestionsProps) => {
   console.log("Questions:", questions);
   // -- FUNCTIONS --
   const addQuestion = (question: Question) => {
+    console.log("Add Question! -> ", question);
     if (!questions) {
       setQuestions([question]);
     } else {
