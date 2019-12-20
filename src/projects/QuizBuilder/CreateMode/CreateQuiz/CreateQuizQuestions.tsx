@@ -65,11 +65,10 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   const [currentMode, setCurrentMode] = useState<"show" | "edit">("edit");
   const [imageURL, setImageURL] = useState<undefined | string>(undefined);
   // TODO: remove any and index 1,2 etc:
-  const [answers, setAnswers] = useState<any>({
-    1: { text: "", isCorrectAnswer: false },
-    2: { text: "", isCorrectAnswer: false }
-  });
-
+  const [answers, setAnswers] = useState<Array<Answer>>([
+    { text: "", isCorrectAnswer: false },
+    { text: "", isCorrectAnswer: false }
+  ]);
   // -- FUNCTIONS --
   const changeCurrentMode = () => {
     if (currentMode === "show") {
@@ -81,13 +80,13 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
 
   const addAnswer = () => {
     // Make a copy of answer state to edit before update
-    let answersCopy = { ...answers };
+    let answersCopy = [...answers];
 
     // Add a new default answer to answersCopy:
-    answersCopy[Object.keys(answers).length + 1] = {
+    answersCopy.push({
       text: "",
       isCorrectAnswer: false
-    };
+    });
     // Update answer state
     setAnswers(answersCopy);
   };
@@ -95,10 +94,10 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   const updateAnswers = (answer: Answer, answerId: number) => {
     if (!answers) return;
 
-    let answersCopy = { ...answers };
+    let answersCopy = [...answers];
 
     for (let id in answersCopy) {
-      if (parseInt(id) === answerId) {
+      if (parseInt(id) === answerId - 1) {
         answersCopy[id] = answer; // Set new answer object
         setAnswers(answersCopy); // set answers state
       }
@@ -202,7 +201,7 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   );
 };
 
-const CreateQuizQuestions2 = (props: CreateQuizQuestionsProps) => {
+const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
   const [questions, setQuestions] = useState<null | Array<Question>>(null);
 
@@ -223,4 +222,4 @@ const CreateQuizQuestions2 = (props: CreateQuizQuestionsProps) => {
   );
 };
 
-export default CreateQuizQuestions2;
+export default CreateQuizQuestions;

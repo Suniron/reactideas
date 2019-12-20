@@ -89,19 +89,18 @@ const AnswerWithoutSelector = (props: AnswerWithoutSelectorProps) => {
       <Row>
         <fieldset>
           <Form.Group>
-            {props.answers.map(answer => {
-              return (
-                <p key={answer.text}>
-                  {answer.text} - {answer.isCorrectAnswer ? "vrai" : "faux"}
-                </p>
-              );
-            })}
+            {props.answers.map(answer => (
+              <p key={answer.text}>
+                {answer.text} - {answer.isCorrectAnswer ? "vrai" : "faux"}
+              </p>
+            ))}
           </Form.Group>
         </fieldset>
       </Row>
     </Container>
   );
 };
+
 export const QuestionCard = (props: QuestionCardProps) => {
   // -- HOOKS --
   const [cardBackground, setCardBackground] = useState<
