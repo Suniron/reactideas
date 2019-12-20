@@ -1,23 +1,18 @@
-import React, { useState, ChangeEvent, SyntheticEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import {
-  Container,
-  Row,
-  InputGroup,
-  FormControl,
   FormControlProps,
   Button,
-  CardGroup,
+  CardDeck,
   Card,
-  Form,
-  FormCheckProps
+  Form
 } from "react-bootstrap";
 import {
-  CreateQuestionProps,
   CreateQuizQuestionsProps,
   MakeQuestionCardProps,
   MakeAnswerFormProps
 } from "./types";
 import { Question, Answer } from "projects/QuizBuilder/quizData/types";
+import { QuestionCard } from "projects/QuizBuilder/ShowMode/ShowQuiz/QuestionCard";
 
 const MakeAnswerForm = (props: MakeAnswerFormProps) => {
   // -- HOOKS --
@@ -69,7 +64,7 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   const [question, setQuestion] = useState<string>("");
   const [currentMode, setCurrentMode] = useState<"show" | "edit">("edit");
   const [imageURL, setImageURL] = useState<undefined | string>(undefined);
-  // TODO: remove any:
+  // TODO: remove any and index 1,2 etc:
   const [answers, setAnswers] = useState<any>({
     1: { text: "", isCorrectAnswer: false },
     2: { text: "", isCorrectAnswer: false }
@@ -117,8 +112,17 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
       return;
     }
 
-    // TODO: Check if it's an image url (.jpg, .png, .gif, ...)
-    setImageURL(event.target.value);
+    const imageUrl = event.target.value;
+
+    // TODO: Check with regex:
+    if (
+      imageUrl.split(".")[imageUrl.split(".").length - 1] === "jpg" ||
+      imageUrl.split(".")[imageUrl.split(".").length - 1] === "png" ||
+      imageUrl.split(".")[imageUrl.split(".").length - 1] === "gif" ||
+      imageUrl.split(".")[imageUrl.split(".").length - 1] === "png"
+    ) {
+      setImageURL(event.target.value);
+    }
   };
 
   const onChangeQuestion = (event: ChangeEvent<FormControlProps>) => {
@@ -134,8 +138,7 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   };
 
   const onValidQuestion = () => {
-    console.log(question, currentMode, imageURL, answers);
-
+    // TODO: corrige "answers" check
     if (question && answers) {
       setCurrentMode("show");
       props.updater({
@@ -156,7 +159,16 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
 
   // -- RENDERER --
   if (currentMode === "show") {
-    return <Card>Show</Card>;
+    return (
+      <QuestionCard
+        key={question}
+        question={{
+          imagePath: imageURL,
+          question: question,
+          answers: answers
+        }}
+      />
+    );
   }
 
   return (
@@ -193,10 +205,9 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
 const CreateQuizQuestions2 = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
   const [questions, setQuestions] = useState<null | Array<Question>>(null);
-  console.log("Questions:", questions);
+
   // -- FUNCTIONS --
   const addQuestion = (question: Question) => {
-    console.log("Add Question! -> ", question);
     if (!questions) {
       setQuestions([question]);
     } else {
@@ -206,9 +217,9 @@ const CreateQuizQuestions2 = (props: CreateQuizQuestionsProps) => {
 
   // -- RENDER --
   return (
-    <CardGroup>
+    <CardDeck>
       <MakeQuestionCard updater={addQuestion} />
-    </CardGroup>
+    </CardDeck>
   );
 };
 

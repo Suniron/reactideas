@@ -6,7 +6,7 @@ export interface ShowQuizProps {
 
 export interface QuestionCardProps {
   question: Question;
-  onAnswered: (resultisCorrectAnswer: boolean) => void;
+  onAnswered?: (resultIsCorrectAnswer: boolean) => void;
 }
 
 export interface AnswerSelectorProps {
@@ -17,4 +17,8 @@ export interface AnswerSelectorProps {
 export interface AnswerRadioButtonProps {
   answer: Answer;
   onCheckAnswer: (userCheckedAnswer: Answer) => void;
+}
+
+export interface AnswerWithoutSelectorProps {
+  answers: Array<Answer>;
 }

@@ -1,144 +1,21 @@
 import React, { useState } from "react";
-import {
-  ShowQuizProps,
-  QuestionCardProps,
-  AnswerSelectorProps,
-  AnswerRadioButtonProps
-} from "./types";
+import { ShowQuizProps } from "./types";
 import {
   Container,
   Row,
   ProgressBar,
   Button,
-  Card,
   CardDeck,
-  Form,
   Col
 } from "react-bootstrap";
-import { Answer } from "projects/QuizBuilder/quizData/types";
 import { useOvermind } from "store";
+import { QuestionCard } from "./QuestionCard";
 
 /**
  * TODO:
  * - Show score when all questions are submitted (and author info? :-) )
  * - Add marging & padding (questions, progressbar, ...)
  */
-
-const AnswerRadioButton = (props: AnswerRadioButtonProps) => {
-  // -- FUNCTIONS --
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onCheckAnswer(props.answer);
-  };
-
-  // -- RENDER --
-  return (
-    <Form.Check
-      onChange={handleChange}
-      type="radio"
-      label={props.answer.text}
-      name="answers"
-      id={props.answer.text}
-    />
-  );
-};
-
-const AnswerSelector = (props: AnswerSelectorProps) => {
-  // -- HOOKS --
-  const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  // -- FUNCTIONS --
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-
-    if (!userAnswer) {
-      // TODO: Show an error message: answer required to submit
-    } else {
-      setIsAnswered(true);
-      props.onAnswerSubmit(userAnswer.isCorrectAnswer);
-    }
-  };
-
-  const handleCheckAnswer = (userCheckedAnswer: Answer) => {
-    setUserAnswer(userCheckedAnswer);
-  };
-
-  // -- RENDER --
-  if (isAnswered) {
-    return (
-      <Container>
-        <Row className="justify-content-center">
-          <Card.Text style={{ fontWeight: "bold" }}>Réponse envoyée</Card.Text>
-        </Row>
-      </Container>
-    );
-  }
-  return (
-    <Container>
-      <Row>
-        <fieldset>
-          <Form.Group>
-            {props.answers.map(answer => {
-              return (
-                <AnswerRadioButton
-                  onCheckAnswer={handleCheckAnswer}
-                  answer={answer}
-                  key={answer.text}
-                />
-              );
-            })}
-          </Form.Group>
-        </fieldset>
-      </Row>
-      <Row>
-        <Button onClick={handleClick}>Envoyer</Button>
-      </Row>
-    </Container>
-  );
-};
-
-const QuestionCard = (props: QuestionCardProps) => {
-  // -- HOOKS --
-  const [cardBackground, setCardBackground] = useState<
-    | "primary"
-    | "secondary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "info"
-    | "dark"
-    | "light"
-    | undefined
-  >(undefined);
-
-  // -- FUNCTIONS --
-  const handleAnswerSubmit = (isCorrectAnswer: boolean) => {
-    if (isCorrectAnswer) {
-      setCardBackground("success");
-    } else {
-      setCardBackground("danger");
-    }
-    props.onAnswered(isCorrectAnswer);
-  };
-
-  // -- RENDER --
-  return (
-    <Card bg={cardBackground}>
-      {props.question.imagePath ? (
-        <Card.Img src={props.question.imagePath} />
-      ) : null}
-      <Card.Body>
-        <Card.Title>{props.question.question}</Card.Title>
-        <AnswerSelector
-          answers={props.question.answers}
-          onAnswerSubmit={handleAnswerSubmit}
-        />
-      </Card.Body>
-    </Card>
-  );
-};
 
 const ShowQuiz = (props: ShowQuizProps) => {
   // -- HOOKS --
