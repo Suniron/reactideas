@@ -144,7 +144,10 @@ export const QuestionCard = (props: QuestionCardProps) => {
             onAnswerSubmit={handleAnswerSubmit}
           />
         ) : (
-          <AnswerWithoutSelector answers={props.question.answers} />
+          <div>
+            <AnswerWithoutSelector answers={props.question.answers} />
+            {/* TODO: <Button onClick={props.editUpdater}>Modifier</Button>*/}
+          </div>
         )}
       </Card.Body>
     </Card>

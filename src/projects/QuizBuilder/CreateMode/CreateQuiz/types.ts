@@ -18,7 +18,7 @@ export interface CreateQuizQuestionsProps {
   updater: (questions: Array<Question>) => void;
 }
 
-export interface MakeQuestionCardProps {
+export interface QuestionCardMakerProps {
   updater: (question: Question) => void;
 }
 

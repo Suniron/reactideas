@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import {
   CreateQuizQuestionsProps,
-  MakeQuestionCardProps,
+  QuestionCardMakerProps,
   MakeAnswerFormProps
 } from "./types";
 import { Question, Answer } from "projects/QuizBuilder/quizData/types";
@@ -59,7 +59,7 @@ const MakeAnswerForm = (props: MakeAnswerFormProps) => {
   );
 };
 
-const MakeQuestionCard = (props: MakeQuestionCardProps) => {
+const QuestionCardMaker = (props: QuestionCardMakerProps) => {
   // -- HOOKS --
   const [question, setQuestion] = useState<string>("");
   const [currentMode, setCurrentMode] = useState<"show" | "edit">("edit");
@@ -70,14 +70,6 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
     { text: "", isCorrectAnswer: false }
   ]);
   // -- FUNCTIONS --
-  const changeCurrentMode = () => {
-    if (currentMode === "show") {
-      setCurrentMode("edit");
-    } else {
-      setCurrentMode("show");
-    }
-  };
-
   const addAnswer = () => {
     // Make a copy of answer state to edit before update
     let answersCopy = [...answers];
@@ -137,7 +129,7 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
   };
 
   const onValidQuestion = () => {
-    // TODO: corrige "answers" check
+    // TODO: get correct "answers" checking
     if (question && answers) {
       setCurrentMode("show");
       props.updater({
@@ -146,6 +138,10 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
         answers: answers
       });
     }
+  };
+
+  const onEditButton = () => {
+    setCurrentMode("edit");
   };
 
   // -- GENERATE COMPONENTS --
@@ -166,6 +162,7 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
           question: question,
           answers: answers
         }}
+        editUpdater={onEditButton}
       />
     );
   }
@@ -203,8 +200,12 @@ const MakeQuestionCard = (props: MakeQuestionCardProps) => {
 
 const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
-  const [questions, setQuestions] = useState<null | Array<Question>>(null);
-
+  //TODO: Edit the mecanism to generate QuestionCardMaker :
+  const [questions2, setQuestions2] = useState<null | Array<Question>>(null);
+  const [questions, setQuestions] = useState<Array<null | Question>>([
+    null,
+    null
+  ]);
   // -- FUNCTIONS --
   const addQuestion = (question: Question) => {
     if (!questions) {
@@ -217,7 +218,7 @@ const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- RENDER --
   return (
     <CardDeck>
-      <MakeQuestionCard updater={addQuestion} />
+      <QuestionCardMaker updater={addQuestion} />
     </CardDeck>
   );
 };

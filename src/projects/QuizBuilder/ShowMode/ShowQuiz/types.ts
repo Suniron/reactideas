@@ -7,6 +7,7 @@ export interface ShowQuizProps {
 export interface QuestionCardProps {
   question: Question;
   onAnswered?: (resultIsCorrectAnswer: boolean) => void;
+  editUpdater?: () => void;
 }
 
 export interface AnswerSelectorProps {
