@@ -131,7 +131,7 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
     // TODO: get correct "answers" checking
     if (question && answers) {
       setCurrentMode("show");
-      props.updater(props.id, {
+      props.updater(props.questionId, {
         imagePath: imageURL,
         question: question,
         answers: answers
@@ -199,21 +199,49 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
 
 const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
-  //TODO: Edit the mecanism to generate QuestionCardMaker :
-  const [questions, setQuestions] = useState<Array<IQuestion>>([{ id: 1 }]);
-  // -- FUNCTIONS --
+  const [questions, setQuestions] = useState<Array<IQuestion>>([
+    { questionId: 1 }
+  ]);
 
-  const addQuestion = (id: number, question: Question) => {
-    let questionsTemp = [...questions];
+  // -- FUNCTIONS --
+  const addQuestion = () => {
+    const questionsTemp = [...questions];
+
+    questionsTemp.push({ questionId: questions.length + 1 });
+    setQuestions(questionsTemp);
+  };
+
+  const updateQuestion = (questionId: number, question: Question) => {
+    const questionsTemp = [...questions];
 
     questionsTemp.forEach(questionItem => {
-      if (questionItem.id === id) {
-        console.log("avant", questionItem);
+      if (questionItem.questionId === questionId) {
         questionItem.question = question;
-        console.log("après", questionItem);
         setQuestions(questionsTemp);
       }
     });
+  };
+
+  const onClickValidate = () => {
+    const allQuestions: Question[] = [];
+
+    questions.forEach(question => {
+      if (question.question) {
+        allQuestions.push(question.question);
+      }
+    });
+
+    if (allQuestions.length !== 0) {
+      if (
+        window.confirm(
+          `Confirmez-vous la création de ce Quiz ? (${allQuestions.length} questions)`
+        )
+      ) {
+        props.updater(allQuestions);
+      }
+    } else {
+      alert("Il faut valider la ou les question(s)");
+    }
   };
 
   // -- RENDER --
@@ -221,16 +249,21 @@ const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
     <Container>
       <Row>
         <CardDeck>
-          {questions.map(({ id }) => (
+          {questions.map(({ questionId }) => (
             <QuestionCardMaker
-              key={"questionCard" + id}
-              id={id}
-              updater={addQuestion}
+              key={"questionCard" + questionId}
+              questionId={questionId}
+              updater={updateQuestion}
             />
           ))}
         </CardDeck>
       </Row>
-      <Row></Row>
+      <Row>
+        <Button onClick={addQuestion}>Ajouter une question</Button>
+        <Button onClick={onClickValidate}>
+          Terminer la création de ce Quiz
+        </Button>
+      </Row>
     </Container>
   );
 };
