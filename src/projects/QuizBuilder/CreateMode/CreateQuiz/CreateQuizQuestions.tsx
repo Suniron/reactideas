@@ -4,12 +4,15 @@ import {
   Button,
   CardDeck,
   Card,
-  Form
+  Form,
+  Row,
+  Container
 } from "react-bootstrap";
 import {
   CreateQuizQuestionsProps,
   QuestionCardMakerProps,
-  MakeAnswerFormProps
+  MakeAnswerFormProps,
+  IQuestion
 } from "./types";
 import { Question, Answer } from "projects/QuizBuilder/quizData/types";
 import { QuestionCard } from "projects/QuizBuilder/ShowMode/ShowQuiz/QuestionCard";
@@ -124,15 +127,11 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
     setQuestion(event.target.value);
   };
 
-  const onAddNewAnswer = () => {
-    addAnswer();
-  };
-
   const onValidQuestion = () => {
     // TODO: get correct "answers" checking
     if (question && answers) {
       setCurrentMode("show");
-      props.updater({
+      props.updater(props.id, {
         imagePath: imageURL,
         question: question,
         answers: answers
@@ -192,7 +191,7 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
           {answersComp.map(comp => comp)}
         </Form.Group>
       </Form>
-      <Button onClick={onAddNewAnswer}>Ajouter une réponse</Button>
+      <Button onClick={addAnswer}>Ajouter une réponse</Button>
       <Button onClick={onValidQuestion}>Valider cette question</Button>
     </Card>
   );
@@ -201,25 +200,38 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
 const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   // -- HOOKS --
   //TODO: Edit the mecanism to generate QuestionCardMaker :
-  const [questions2, setQuestions2] = useState<null | Array<Question>>(null);
-  const [questions, setQuestions] = useState<Array<null | Question>>([
-    null,
-    null
-  ]);
+  const [questions, setQuestions] = useState<Array<IQuestion>>([{ id: 1 }]);
   // -- FUNCTIONS --
-  const addQuestion = (question: Question) => {
-    if (!questions) {
-      setQuestions([question]);
-    } else {
-      setQuestions(questions.concat(question));
-    }
+
+  const addQuestion = (id: number, question: Question) => {
+    let questionsTemp = [...questions];
+
+    questionsTemp.forEach(questionItem => {
+      if (questionItem.id === id) {
+        console.log("avant", questionItem);
+        questionItem.question = question;
+        console.log("après", questionItem);
+        setQuestions(questionsTemp);
+      }
+    });
   };
 
   // -- RENDER --
   return (
-    <CardDeck>
-      <QuestionCardMaker updater={addQuestion} />
-    </CardDeck>
+    <Container>
+      <Row>
+        <CardDeck>
+          {questions.map(({ id }) => (
+            <QuestionCardMaker
+              key={"questionCard" + id}
+              id={id}
+              updater={addQuestion}
+            />
+          ))}
+        </CardDeck>
+      </Row>
+      <Row></Row>
+    </Container>
   );
 };
 

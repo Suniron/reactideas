@@ -19,10 +19,16 @@ export interface CreateQuizQuestionsProps {
 }
 
 export interface QuestionCardMakerProps {
-  updater: (question: Question) => void;
+  id: number;
+  updater: (id: number, question: Question) => void;
 }
 
 export interface MakeAnswerFormProps {
   updater: (answer: Answer, answerId: number) => void;
   id: string;
+}
+
+export interface IQuestion {
+  id: number;
+  question?: Question;
 }
