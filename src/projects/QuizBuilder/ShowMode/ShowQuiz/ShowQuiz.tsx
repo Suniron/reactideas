@@ -5,7 +5,7 @@ import {
   Row,
   ProgressBar,
   Button,
-  CardDeck,
+  CardColumns,
   Col
 } from "react-bootstrap";
 import { useOvermind } from "store";
@@ -82,7 +82,7 @@ const ShowQuiz = (props: ShowQuizProps) => {
       ) : null}
 
       <Row className="justify-content-center">
-        <CardDeck className="p-3">
+        <CardColumns className="p-3">
           {props.quiz.questions.map(question => {
             return (
               <QuestionCard
@@ -92,7 +92,7 @@ const ShowQuiz = (props: ShowQuizProps) => {
               />
             );
           })}
-        </CardDeck>
+        </CardColumns>
       </Row>
     </Container>
   );

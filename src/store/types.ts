@@ -9,4 +9,5 @@ export interface State {
   currentQuiz: null | Quiz;
   // -- Create Mode:
   currentCreatedQuiz: null | Quiz;
+  allQuiz: Array<Quiz>;
 }

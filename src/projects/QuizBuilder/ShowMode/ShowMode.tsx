@@ -1,13 +1,11 @@
 import React from "react";
 import { Card, CardColumns, Container, Row, Button } from "react-bootstrap";
 import { QuizCardProps, QuizCardsProps } from "./types";
-
-// Data needed to test::
-import { quizTest } from "./../quizData/quizDataTest";
 import { Quiz } from "../quizData/types";
 import ShowQuiz from "./ShowQuiz";
 import { useOvermind } from "store";
 import { RouteComponentProps } from "react-router";
+import { state } from "store/state";
 
 const QuizCard = (props: QuizCardProps) => {
   // -- HOOKS --
@@ -40,7 +38,7 @@ const QuizCard = (props: QuizCardProps) => {
 const QuizCards = (props: QuizCardsProps) => {
   return (
     <CardColumns>
-      {quizTest.map(quiz => (
+      {state.allQuiz.map(quiz => (
         <QuizCard
           key={quiz.name}
           quiz={quiz}

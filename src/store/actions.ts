@@ -1,6 +1,7 @@
 import { Action } from "overmind";
-import { Quiz, Question } from "projects/QuizBuilder/quizData/types";
+import { Quiz } from "projects/QuizBuilder/quizData/types";
 
+// -- QUIZ BUILDER --
 export const setCurrentQuiz: Action<null | Quiz> = (
   { state },
   currentQuiz: null | Quiz
@@ -8,20 +9,8 @@ export const setCurrentQuiz: Action<null | Quiz> = (
   state.currentQuiz = currentQuiz;
 };
 
-export const setCurrentCreatedQuiz: Action<null | Quiz> = (
-  { state },
-  currentCreatedQuiz: null | Quiz
-) => {
-  state.currentCreatedQuiz = currentCreatedQuiz;
-};
-
-export const addQuestionToCurrentCreatedQuiz: Action<Question> = (
-  { state },
-  question: Question
-) => {
-  if (state.currentCreatedQuiz) {
-    state.currentCreatedQuiz.questions.push(question);
-  }
+export const addQuizToAllQuiz: Action<Quiz> = ({ state }, newQuiz: Quiz) => {
+  state.allQuiz.push(newQuiz);
 };
 
 /** 

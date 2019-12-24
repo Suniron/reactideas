@@ -3,16 +3,15 @@ import { CreateQuizInfosProps } from "./types";
 import {
   Container,
   Row,
-  InputGroup,
-  FormControl,
   FormControlProps,
-  Button
+  Button,
+  Form
 } from "react-bootstrap";
 
 const CreateQuizInfos = (props: CreateQuizInfosProps) => {
   // -- HOOKS --
-  const [title, setTitle] = useState<null | string>(null);
-  const [description, setDescription] = useState<null | string>(null);
+  const [title, setTitle] = useState<undefined | string>(undefined);
+  const [description, setDescription] = useState<undefined | string>(undefined);
   const [imageURL, setImageURL] = useState<undefined | string>(undefined);
 
   // -- FUNCTIONS --
@@ -46,41 +45,44 @@ const CreateQuizInfos = (props: CreateQuizInfosProps) => {
   return (
     <Container>
       <Row>
-        <h1>Renseignez les informations du quiz:</h1>
+        <h1>Renseignez les informations pour le nouveau Quiz:</h1>
       </Row>
 
       <Row>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>Saisir le titre du Quiz:</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl onChange={onChangeTitle} />
-        </InputGroup>
-      </Row>
+        <Form>
+          <Form.Group controlId="formTitle">
+            <Form.Label>Le titre du quiz</Form.Label>
+            <Form.Control
+              onChange={onChangeTitle}
+              placeholder="Saisir le titre"
+            />
+          </Form.Group>
 
-      <Row>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>Saisir la description du Quiz:</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl onChange={onChangeDescription} />
-        </InputGroup>
-      </Row>
+          <Form.Group controlId="formDescription">
+            <Form.Label>La description du quiz</Form.Label>
+            <Form.Control
+              onChange={onChangeDescription}
+              placeholder="Saisir la description"
+            />
+          </Form.Group>
 
-      <Row>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>
-              Url de l'illustration du quiz (Optionnel)
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl onChange={onChangeDescription} />
-        </InputGroup>
+          <Form.Group controlId="formImage">
+            <Form.Label>Le titre du quiz (Optionnel)</Form.Label>
+            <Form.Control
+              onChange={onChangeImage}
+              placeholder="Saisir l'url de l'image"
+            />
+            <Form.Text className="text-muted">
+              L'adresse doit finir par .jpg, .png ou .gif. Ce champs peut rester
+              vide.
+            </Form.Text>
+          </Form.Group>
+        </Form>
       </Row>
 
       <Row>
         <Button type="button" onClick={onSubmitHandler}>
-          Envoyer
+          Valider et passer aux questions
         </Button>
       </Row>
     </Container>

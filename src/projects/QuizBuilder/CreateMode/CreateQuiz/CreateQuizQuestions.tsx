@@ -2,11 +2,12 @@ import React, { useState, ChangeEvent } from "react";
 import {
   FormControlProps,
   Button,
-  CardDeck,
+  CardColumns,
   Card,
   Form,
   Row,
-  Container
+  Container,
+  Col
 } from "react-bootstrap";
 import {
   CreateQuizQuestionsProps,
@@ -103,20 +104,22 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
     event.preventDefault();
 
     if (!event.target.value) {
+      setImageURL(undefined);
       return;
     }
 
     const imageUrl = event.target.value;
 
-    // TODO: Check with regex:
-    if (
-      imageUrl.split(".")[imageUrl.split(".").length - 1] === "jpg" ||
-      imageUrl.split(".")[imageUrl.split(".").length - 1] === "png" ||
-      imageUrl.split(".")[imageUrl.split(".").length - 1] === "gif" ||
-      imageUrl.split(".")[imageUrl.split(".").length - 1] === "png"
-    ) {
-      setImageURL(event.target.value);
-    }
+    fetch(imageUrl)
+      .then(success => {
+        if (success.status === 200) {
+          // TODO: Check if image is broken:
+          setImageURL(imageUrl);
+        }
+      })
+      .catch(error => {
+        console.error("Impossible de charger l'image:", error);
+      });
   };
 
   const onChangeQuestion = (event: ChangeEvent<FormControlProps>) => {
@@ -167,13 +170,24 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
   }
 
   return (
-    <Card>
+    <Card className="p-2">
+      {imageURL ? (
+        <Col>
+          <Row>
+            <Form.Label>Aperçu de l'image:</Form.Label>
+          </Row>
+          <Row>
+            <Card.Img variant="top" src={imageURL} />
+          </Row>
+        </Col>
+      ) : null}
+
       <Form>
         <Form.Group>
           <Form.Label>Ajouter une image (optionnel):</Form.Label>
           <Form.Control
             onChange={onChangeImageURL}
-            placeholder="Saisir l'url du fichier image"
+            placeholder="Saisir l'url de l'image .jpg .png ou .gif"
           />
         </Form.Group>
 
@@ -191,8 +205,19 @@ const QuestionCardMaker = (props: QuestionCardMakerProps) => {
           {answersComp.map(comp => comp)}
         </Form.Group>
       </Form>
-      <Button onClick={addAnswer}>Ajouter une réponse</Button>
-      <Button onClick={onValidQuestion}>Valider cette question</Button>
+      <Row className="justify-content-center">
+        <Button
+          className="m-1"
+          variant="outline-primary"
+          size="sm"
+          onClick={addAnswer}
+        >
+          Ajouter une autre réponse
+        </Button>
+        <Button onClick={onValidQuestion}>
+          Valider cette question et ses réponses
+        </Button>
+      </Row>
     </Card>
   );
 };
@@ -234,7 +259,7 @@ const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
     if (allQuestions.length !== 0) {
       if (
         window.confirm(
-          `Confirmez-vous la création de ce Quiz ? (${allQuestions.length} questions)`
+          `Confirmez-vous la création de ce Quiz ? (${allQuestions.length} questions validées)`
         )
       ) {
         props.updater(allQuestions);
@@ -248,7 +273,7 @@ const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
   return (
     <Container>
       <Row>
-        <CardDeck>
+        <CardColumns>
           {questions.map(({ questionId }) => (
             <QuestionCardMaker
               key={"questionCard" + questionId}
@@ -256,10 +281,15 @@ const CreateQuizQuestions = (props: CreateQuizQuestionsProps) => {
               updater={updateQuestion}
             />
           ))}
-        </CardDeck>
+          <Card className="p-2">
+            <Row className="justify-content-center">
+              <Button onClick={addQuestion}>Ajouter une autre question</Button>
+            </Row>
+          </Card>
+        </CardColumns>
       </Row>
-      <Row>
-        <Button onClick={addQuestion}>Ajouter une question</Button>
+
+      <Row className="m-1">
         <Button onClick={onClickValidate}>
           Terminer la création de ce Quiz
         </Button>
