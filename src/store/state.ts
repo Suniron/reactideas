@@ -7,8 +7,6 @@ export const state: State = {
   // Quiz Builder:
   // -- Show Mode:
   currentQuiz: null,
-  // -- Create Mode:
-  currentCreatedQuiz: null,
   // -- All Quiz :
   allQuiz: [quizTest] // Init with an exemple
 };

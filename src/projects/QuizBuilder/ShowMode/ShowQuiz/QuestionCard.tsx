@@ -129,7 +129,7 @@ export const QuestionCard = (props: QuestionCardProps) => {
 
   // -- RENDER --
   return (
-    <Card bg={cardBackground}>
+    <Card className="p-1" bg={cardBackground}>
       {props.question.imagePath ? (
         <Card.Img
           src={props.question.imagePath}

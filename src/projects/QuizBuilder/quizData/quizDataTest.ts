@@ -2,7 +2,7 @@ import { Quiz } from "./types";
 
 export const quizTest: Quiz = {
   name: "Quiz des animaux",
-  description: "Un quiz sur les animaux, bon courage ;-)",
+  description: "Un quiz sur les animaux, bon courage 😎",
   illustrationPath: "https://image.flaticon.com/icons/svg/616/616430.svg",
   questions: [
     {

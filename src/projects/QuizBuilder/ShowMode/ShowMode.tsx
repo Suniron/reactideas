@@ -20,14 +20,14 @@ const QuizCard = (props: QuizCardProps) => {
 
   // -- RENDER --
   return (
-    <Card>
+    <Card className="p-1">
       {props.quiz.illustrationPath ? (
         <Card.Img variant="top" src={props.quiz.illustrationPath} />
       ) : null}
       <Card.Body>
         <Card.Title>{props.quiz.name}</Card.Title>
         <Card.Text>{props.quiz.description}</Card.Text>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center">
           <Button onClick={onClickHandle}>Démarrer celui-ci !</Button>
         </Row>
       </Card.Body>

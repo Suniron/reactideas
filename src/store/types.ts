@@ -7,7 +7,5 @@ export interface State {
   // QuizBuilder:
   // -- Show Mode:
   currentQuiz: null | Quiz;
-  // -- Create Mode:
-  currentCreatedQuiz: null | Quiz;
   allQuiz: Array<Quiz>;
 }
